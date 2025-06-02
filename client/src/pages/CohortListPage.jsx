@@ -3,7 +3,7 @@ import axios from "axios";
 import CohortFilterBar from "../components/CohortFilterBar";
 import CohortCard from "../components/CohortCard";
 
-// Import the string from the .env with URL of the API/server - http://localhost:5005
+// Import the string from the .env with URL of the API/server - http://localhost:5006
 const API_URL = import.meta.env.VITE_API_URL;
 
 function CohortListPage() {

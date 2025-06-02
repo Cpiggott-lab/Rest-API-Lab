@@ -1,5 +1,11 @@
+require("dotenv").config();
+
 const express = require("express");
-const PORT = 5005;
+const app = express();
+const PORT = 5006;
+
+const middlewareConfig = require("./config/middleware.config");
+middlewareConfig(app);
 
 // Making the schema accessible
 const Student = require("./models/students.model");
@@ -13,18 +19,18 @@ mongoose
   .catch((err) => console.error("Error connecting to MongoDB", err));
 
 // STATIC DATA
+
 // Devs Team - Import the provided files with JSON data of students and cohorts here:
 const cohorts = require("./cohorts.json");
 const students = require("./students.json");
 
-// INITIALIZE EXPRESS APP - https://expressjs.com/en/4x/api.html#express
-const app = express();
-
 const cohortRoutes = require("./routes/cohort.routes");
 const studentRoutes = require("./routes/student.routes");
+const authRouter = require("./routes/auth.routes");
 
 app.use("/", cohortRoutes);
 app.use("/", studentRoutes);
+app.use("/auth", authRouter);
 
 // START SERVER
 app.listen(PORT, () => {
@@ -37,7 +43,7 @@ app.listen(PORT, () => {
 
 // Research Team - Set up CORS middleware here:
 // CORS (Cross-Origin Resource Sharing) is a security feature that allows or blocks
-// requests between different domains or ports (frontend on 5173 and backend on 5005).
+// requests between different domains or ports (frontend on 5173 and backend on 5006).
 // const cors = require("cors");
 // app.use(cors());
 
